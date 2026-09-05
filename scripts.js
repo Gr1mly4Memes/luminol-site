@@ -123,24 +123,55 @@ setInterval(fetchMCStatus, 60 * 1000);
 (function () {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    // 1. Reveal elements as they scroll into view
-    const revealEls = document.querySelectorAll(
-        ".section, .split, .card, .faq, .cta-banner, .rules-list li, .stats-strip"
+    // 1. Reveal elements as they scroll into view.
+    // Uses IntersectionObserver + a scroll sweep fallback, so fast jumps
+    // (scrollbar drag, End key, instant scrollTo) can't leave content hidden.
+    const revealEls = Array.from(
+        document.querySelectorAll(
+            ".section, .split, .card, .faq, .cta-banner, .rules-list li, .stats-strip"
+        )
     );
     revealEls.forEach((el) => el.classList.add("reveal"));
+    const pending = new Set(revealEls);
+
+    const show = (el) => {
+        el.classList.add("visible");
+        pending.delete(el);
+        revealer.unobserve(el);
+    };
+    const sweep = () => {
+        const vh = window.innerHeight;
+        pending.forEach((el) => {
+            const r = el.getBoundingClientRect();
+            if (r.top < vh * 0.92 && r.bottom > 0) show(el);
+        });
+    };
 
     const revealer = new IntersectionObserver(
         (entries) => {
             entries.forEach((e) => {
-                if (e.isIntersecting) {
-                    e.target.classList.add("visible");
-                    revealer.unobserve(e.target);
-                }
+                if (e.isIntersecting) show(e.target);
             });
+            if (pending.size === 0) {
+                revealer.disconnect();
+                window.removeEventListener("scroll", onScroll, { passive: true });
+            }
         },
-        { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+        { threshold: 0.1, rootMargin: "0px 0px -5% 0px" }
     );
     revealEls.forEach((el) => revealer.observe(el));
+
+    let ticking = false;
+    const onScroll = () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+            ticking = false;
+            sweep();
+        });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    sweep(); // reveal anything already in view on load
 
     // 2. Highlight the nav link for the section in view
     const navMap = new Map();
