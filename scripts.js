@@ -198,14 +198,43 @@ setInterval(fetchMCStatus, 60 * 1000);
 
     // 3. Brief glow flash on the section you navigated to
     document.querySelectorAll("a[href^='#']").forEach((a) => {
-        a.addEventListener("click", () => {
+        a.addEventListener("click", (e) => {
             const target = document.querySelector(a.getAttribute("href"));
             if (!target) return;
-            target.classList.remove("section-flash");
-            setTimeout(() => {
-                target.classList.add("section-flash");
-                setTimeout(() => target.classList.remove("section-flash"), 1300);
-            }, 450);
+
+            // Apply page transition to nav links and card links
+            const isNavLink = a.closest('.nav-links');
+            const isCardLink = a.closest('.card-link');
+            const isStepLink = a.closest('.step');
+
+            if (isNavLink || isCardLink || isStepLink) {
+                e.preventDefault();
+
+                // Page transition: fade out, scroll, then fade in
+                document.body.classList.add('page-transition');
+
+                setTimeout(() => {
+                    target.scrollIntoView({ behavior: 'auto' });
+                    document.body.classList.remove('page-transition');
+                    document.body.classList.add('page-transition-in');
+
+                    setTimeout(() => {
+                        document.body.classList.remove('page-transition-in');
+                        target.classList.remove("section-flash");
+                        setTimeout(() => {
+                            target.classList.add("section-flash");
+                            setTimeout(() => target.classList.remove("section-flash"), 1300);
+                        }, 50);
+                    }, 500);
+                }, 300);
+            } else {
+                // Regular anchor links just get the flash effect
+                target.classList.remove("section-flash");
+                setTimeout(() => {
+                    target.classList.add("section-flash");
+                    setTimeout(() => target.classList.remove("section-flash"), 1300);
+                }, 450);
+            }
         });
     });
 })();
