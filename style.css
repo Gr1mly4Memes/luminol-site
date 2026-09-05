@@ -85,6 +85,11 @@ code { font-family: 'JetBrains Mono', Consolas, monospace; }
         linear-gradient(90deg, rgba(245,184,0,0.035) 1px, transparent 1px);
     background-size: auto, auto, 44px 44px, 44px 44px;
     pointer-events: none;
+    animation: bg-pulse 8s ease-in-out infinite;
+}
+@keyframes bg-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
 }
 .hero-content { position: relative; max-width: 820px; margin: 0 auto; }
 .badge {
@@ -96,9 +101,13 @@ code { font-family: 'JetBrains Mono', Consolas, monospace; }
     width: 150px; height: 150px; border-radius: 22px; margin-bottom: 22px;
     image-rendering: pixelated;
     filter: drop-shadow(0 0 34px rgba(245,184,0,0.55));
-    animation: float 4s ease-in-out infinite;
+    animation: float 4s ease-in-out infinite, glow 3s ease-in-out infinite;
 }
-@keyframes float { 0%,100% { transform: translateY(0);} 50% { transform: translateY(-12px);} }
+@keyframes float { 0%,100% { transform: translateY(0) rotate(0deg);} 50% { transform: translateY(-12px) rotate(2deg);} }
+@keyframes glow {
+    0%, 100% { filter: drop-shadow(0 0 34px rgba(245,184,0,0.55)); }
+    50% { filter: drop-shadow(0 0 50px rgba(245,184,0,0.8)); }
+}
 .glow-text {
     font-size: clamp(2.8rem, 9vw, 5.2rem); font-weight: 900; letter-spacing: 8px;
     background: linear-gradient(180deg, #fff4c2 0%, var(--gold-core) 55%, var(--gold-deep) 100%);
@@ -129,8 +138,13 @@ code { font-family: 'JetBrains Mono', Consolas, monospace; }
 .btn-gold {
     background: linear-gradient(180deg, var(--gold-bright), var(--gold-core));
     color: #2a2000; box-shadow: 0 0 14px rgba(245,184,0,0.35);
+    animation: btn-shimmer 3s ease-in-out infinite;
 }
 .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 0 26px rgba(245,184,0,0.6); }
+@keyframes btn-shimmer {
+    0%, 100% { box-shadow: 0 0 14px rgba(245,184,0,0.35); }
+    50% { box-shadow: 0 0 20px rgba(245,184,0,0.5); }
+}
 .btn-outline {
     background: transparent; color: var(--gold-bright);
     border: 2px solid var(--gold-core);
@@ -192,8 +206,13 @@ code { font-family: 'JetBrains Mono', Consolas, monospace; }
     background: var(--card-bg); border: 1px solid var(--border);
     border-radius: 16px; padding: 30px 26px;
     transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    animation: card-breathe 6s ease-in-out infinite;
 }
 .card:hover { transform: translateY(-5px); border-color: var(--gold-core); box-shadow: 0 10px 34px rgba(245,184,0,0.18); }
+@keyframes card-breathe {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+}
 .card-icon { font-size: 2rem; margin-bottom: 12px; }
 .card h3 { color: var(--gold-bright); margin-bottom: 8px; font-size: 1.1rem; }
 .card p { color: var(--text-dim); font-size: 0.94rem; }
@@ -319,18 +338,21 @@ code { font-family: 'JetBrains Mono', Consolas, monospace; }
 /* Offset anchors below the sticky navbar */
 section[id], header[id], div[id] { scroll-margin-top: 72px; }
 
-/* Page load fade */
-body { animation: page-in 0.5s ease both; }
-@keyframes page-in { from { opacity: 0; } to { opacity: 1; } }
+/* Page load fade with scale and slide */
+body { animation: page-in 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+@keyframes page-in {
+    from { opacity: 0; transform: translateY(20px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
 
-/* Scroll reveal: elements glide in as they enter the viewport */
+/* Scroll reveal: elements glide in with scale as they enter the viewport */
 .reveal {
     opacity: 0;
-    transform: translateY(26px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
+    transform: translateY(40px) scale(0.95);
+    transition: opacity 0.7s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
     transition-delay: var(--reveal-delay, 0s);
 }
-.reveal.visible { opacity: 1; transform: none; }
+.reveal.visible { opacity: 1; transform: translateY(0) scale(1); }
 
 /* Stagger cards in the same grid */
 .grid-3 .card:nth-child(2), .join-grid .card:nth-child(2) { --reveal-delay: 0.1s; }
