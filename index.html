@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luminol — Minecraft & Discord Server</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar">
+    <div class="nav-inner">
+        <a href="#home" class="brand">
+            <img src="assets/glowstone.png" alt="Luminol" class="brand-icon">
+            <span>LUMINOL</span>
+        </a>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#join">Join</a>
+            <a href="#discord">Discord</a>
+            <a href="#rules">Rules</a>
+        </div>
+    </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<header id="home" class="hero">
+    <div class="hero-content">
+        <img src="assets/glowstone-hero.png" alt="Glowstone" class="hero-img">
+        <h1 class="glow-text">LUMINOL</h1>
+        <p class="tagline">A glowing community for Minecraft & Discord players.</p>
+
+        <div class="ip-box">
+            <span class="ip-label">Server IP</span>
+            <code id="server-ip">play.luminol.gg</code>
+            <button class="btn btn-gold" onclick="copyIP()">Copy IP</button>
+        </div>
+
+        <div id="mc-status" class="mc-status">Checking server status…</div>
+    </div>
+</header>
+
+<!-- ===== JOIN ===== -->
+<section id="join" class="section">
+    <h2 class="section-title">How to Join</h2>
+    <div class="grid-3">
+        <div class="card">
+            <div class="step-num">1</div>
+            <h3>Launch Minecraft</h3>
+            <p>Java Edition <strong>1.20+</strong> (check Discord for the current version).</p>
+        </div>
+        <div class="card">
+            <div class="step-num">2</div>
+            <h3>Add Server</h3>
+            <p>Multiplayer → Add Server → paste the IP above.</p>
+        </div>
+        <div class="card">
+            <div class="step-num">3</div>
+            <h3>Join Discord</h3>
+            <p>Link your account in-game to get member roles and event pings.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ===== DISCORD ===== -->
+<section id="discord" class="section section-dark">
+    <h2 class="section-title">Join Our Discord</h2>
+    <p class="section-sub">Chat, events, announcements, and support — all in one place.</p>
+
+    <!-- Replace YOUR_SERVER_ID with the ID from Server Settings → Widget -->
+    <iframe
+            src="https://discord.com/widget?id=1416925808311668736&theme=dark"
+            width="350" height="500"
+            allowtransparency="true" frameborder="0"
+            sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts">
+    </iframe>
+</section>
+
+<!-- ===== RULES ===== -->
+<section id="rules" class="section">
+    <h2 class="section-title">Server Rules</h2>
+    <ul class="rules-list">
+        <li>Be respectful — no harassment, hate speech, or spam.</li>
+        <li>No griefing or stealing, even in the wild.</li>
+        <li>No hacked clients, X-ray, or dupes.</li>
+        <li>Keep chat family-friendly.</li>
+        <li>Listen to staff — their call is final.</li>
+    </ul>
+</section>
+
+<footer class="footer">
+    <p>© 2026 Luminol. Not affiliated with Mojang or Microsoft.</p>
+    <p class="footer-glow">✦ Built by the community, for the community ✦</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
