@@ -119,6 +119,62 @@ async function fetchMCStatus() {
 fetchMCStatus();
 setInterval(fetchMCStatus, 60 * 1000);
 
+// ===== Announcements =====
+async function fetchAnnouncements() {
+    const container = document.getElementById("announcements-container");
+    if (!container) return;
+
+    try {
+        const response = await fetch("announcements.json");
+        if (!response.ok) throw new Error("Failed to fetch announcements");
+        const data = await response.json();
+
+        if (!data.announcements || data.announcements.length === 0) {
+            container.innerHTML = '<div class="announcement-empty">No announcements yet. Check Discord for updates!</div>';
+            return;
+        }
+
+        container.innerHTML = data.announcements.map((announcement, index) => `
+            <div class="announcement" style="animation-delay: ${index * 0.1}s">
+                <div class="announcement-header">
+                    <span class="announcement-type">${getTypeIcon(announcement.type)}</span>
+                    <h3 class="announcement-title">${escapeHtml(announcement.title)}</h3>
+                    <span class="announcement-date">${formatDate(announcement.date)}</span>
+                </div>
+                <p class="announcement-content">${escapeHtml(announcement.content)}</p>
+                ${announcement.author ? `<span class="announcement-author">Posted by ${escapeHtml(announcement.author)}</span>` : ''}
+            </div>
+        `).join('');
+    } catch (err) {
+        console.error("Failed to load announcements:", err);
+        container.innerHTML = '<div class="announcement-error">Could not load announcements. Check back later!</div>';
+    }
+}
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+function formatDate(dateStr) {
+    const date = new Date(dateStr);
+    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+function getTypeIcon(type) {
+    const icons = {
+        info: '📢',
+        update: '🚀',
+        event: '🎉',
+        warning: '⚠️',
+        maintenance: '🔧'
+    };
+    return icons[type] || '📢';
+}
+
+fetchAnnouncements();
+
 // ===== Page transitions: scroll reveals + nav spy + target flash =====
 (function () {
     // Reduced motion check removed to force animations
@@ -128,7 +184,7 @@ setInterval(fetchMCStatus, 60 * 1000);
     // (scrollbar drag, End key, instant scrollTo) can't leave content hidden.
     const revealEls = Array.from(
         document.querySelectorAll(
-            ".section, .split, .card, .faq, .cta-banner, .rules-list li, .stats-strip"
+            ".section, .split, .card, .faq, .cta-banner, .rules-list li, .stats-strip, .announcement"
         )
     );
     revealEls.forEach((el) => el.classList.add("reveal"));

@@ -223,6 +223,74 @@ code { font-family: 'JetBrains Mono', Consolas, monospace; }
 .section-title { font-size: clamp(1.7rem, 4vw, 2.5rem); font-weight: 800; margin-bottom: 12px; line-height: 1.25; }
 .section-sub { color: var(--text-dim); margin-bottom: 20px; }
 
+/* ANNOUNCEMENTS */
+.announcements-list {
+    max-width: 800px;
+    margin: 36px auto 0;
+    text-align: left;
+    display: grid;
+    gap: 16px;
+}
+.announcement {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    animation: fade-in-up 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.announcement:hover {
+    border-color: var(--gold-core);
+    box-shadow: 0 4px 20px rgba(245,184,0,0.15);
+}
+.announcement-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+.announcement-type {
+    font-size: 1.5rem;
+}
+.announcement-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--gold-bright);
+    margin: 0;
+    flex: 1;
+}
+.announcement-date {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.announcement-content {
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 8px;
+}
+.announcement-author {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    font-style: italic;
+}
+.announcement-loading,
+.announcement-empty,
+.announcement-error {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-dim);
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+.announcement-error {
+    color: var(--red);
+    border-color: var(--red);
+}
+
 /* CARDS */
 .grid-3, .join-grid {
     display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -321,6 +389,7 @@ code { font-family: 'JetBrains Mono', Consolas, monospace; }
 .rules-list li:nth-child(3) { animation: slide-in-right 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: 0.2s; }
 .rules-list li:nth-child(4) { animation: slide-in-left 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: 0.3s; }
 .rules-list li:nth-child(5) { animation: fade-in-up 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: 0.4s; }
+.rules-list li:nth-child(6) { animation: slide-in-right 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: 0.5s; }
 .rules-list li::before { content: "✦ "; color: var(--gold-core); font-weight: 900; }
 
 /* FOOTER */

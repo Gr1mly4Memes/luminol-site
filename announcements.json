@@ -1,0 +1,12 @@
+{
+  "announcements": [
+    {
+      "id": 1,
+      "title": "Luminol is a Work in Progress!",
+      "content": "Hey everyone! Luminol is still very new and actively being worked on. Things may change, break, or behave unexpectedly while we continue developing and improving the server. We're still fixing bugs, improving performance, adding features, and figuring things out. Your feedback and suggestions are a big part of helping Luminol grow. Please keep in mind that our server hardware is limited. Because of this, extremely large farms, excessive entity counts, lag machines, and other resource-heavy setups can have a noticeable impact on everyone. Expect some rough edges. Report bugs when you find them. Share your ideas and suggestions. Keep our limited hardware in mind. Most importantly, have fun! Thanks for being here early and helping us build Luminol into something awesome!",
+      "date": "2026-09-04",
+      "author": "Admin",
+      "type": "info"
+    }
+  ]
+}
