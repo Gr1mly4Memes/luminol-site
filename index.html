@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Luminol — A glowing community for Minecraft players</title>
-    <meta name="description" content="Luminol is a glowing community for Minecraft players. Join with Java Edition 26.2.">
+    <meta name="description" content="Luminol is a glowing community for Minecraft players. Join on Java Edition 26.2.">
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- ===== NAVBAR (Paper-style) ===== -->
+<!-- ===== NAVBAR (papermc.io style) ===== -->
 <nav class="navbar">
     <div class="nav-inner">
         <a href="#home" class="brand">
@@ -18,132 +18,142 @@
             <span>LUMINOL</span>
         </a>
         <div class="nav-links">
-            <a href="#features">Features</a>
-            <a href="#join">How to Join</a>
+            <a href="#play">Play</a>
+            <a href="#showcase">World</a>
+            <a href="#join">Docs</a>
             <a href="#faq">FAQ</a>
             <a href="#rules">Rules</a>
         </div>
         <div class="nav-actions">
-            <button class="ip-pill" onclick="copyIP(this)" title="Click to copy">
-                <span class="dot" id="nav-dot"></span>
-                <code data-mc-ip>finishes-ames.tun.ply.gg</code>
-            </button>
-            <a class="btn btn-gold btn-sm" href="https://discord.gg/TAhvjB9cAy" target="_blank" rel="noopener">Discord</a>
+            <a class="nav-icon" href="https://discord.gg/TAhvjB9cAy" target="_blank" rel="noopener" title="Discord">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M20.32 4.37a19.8 19.8 0 0 0-4.93-1.51 13.78 13.78 0 0 0-.64 1.28 18.27 18.27 0 0 0-5.5 0 12.64 12.64 0 0 0-.64-1.28h-.05A19.74 19.74 0 0 0 3.64 4.37 20.15 20.15 0 0 0 .11 18.06a19.9 19.9 0 0 0 6.04 3.03c.46-.63.87-1.3 1.22-2a12.9 12.9 0 0 1-1.93-.92c.16-.12.32-.24.47-.37a14.2 14.2 0 0 0 12.18 0c.15.13.31.25.47.37-.61.36-1.26.68-1.93.92.35.7.76 1.37 1.22 2a19.83 19.83 0 0 0 6.03-3.03 20.02 20.02 0 0 0-3.56-13.69ZM8.02 15.33c-1.18 0-2.16-1.08-2.16-2.42s.95-2.42 2.16-2.42 2.18 1.09 2.16 2.42c0 1.34-.95 2.42-2.16 2.42Zm7.97 0c-1.18 0-2.15-1.08-2.15-2.42s.95-2.42 2.15-2.42 2.18 1.09 2.16 2.42c0 1.34-.95 2.42-2.16 2.42Z"/></svg>
+            </a>
+            <button class="btn btn-gold btn-sm" onclick="copyIP(this)">Play Now</button>
         </div>
     </div>
 </nav>
 
-<!-- ===== HERO ===== -->
+<!-- ===== HERO (papermc.io: headline + sub + two buttons) ===== -->
 <header id="home" class="hero">
     <div class="hero-bg"></div>
     <div class="hero-content">
-        <div class="badge">✦ &nbsp;Java Edition 26.2 &nbsp;•&nbsp; Survival &nbsp;•&nbsp; Community&nbsp; ✦</div>
         <img src="assets/glowstone-hero.png" alt="Glowstone block" class="hero-img">
-        <h1 class="glow-text">LUMINOL</h1>
-        <p class="tagline">A glowing community for Minecraft players.</p>
+        <h1 class="hero-title">Modern survival.<br>Built to glow.</h1>
+        <p class="tagline">A glowing community for Minecraft players. Join on Java Edition 26.2 — copy the IP and play in under a minute.</p>
 
         <div class="cta-row">
-            <button class="btn btn-gold btn-lg" onclick="copyIP(this)">⛏ Play Now — Copy IP</button>
+            <button class="btn btn-gold btn-lg" onclick="copyIP(this)">Play Now</button>
             <a class="btn btn-outline btn-lg" href="https://discord.gg/TAhvjB9cAy" target="_blank" rel="noopener">Join Discord</a>
         </div>
 
-        <div class="ip-bar">
+        <button class="ip-copy" onclick="copyIP(this)" title="Click to copy">
             <span class="ip-label">Server IP</span>
             <code data-mc-ip>finishes-ames.tun.ply.gg</code>
-            <button class="btn btn-gold btn-sm" onclick="copyIP(this)">Copy IP</button>
-        </div>
+            <span class="ip-copy-hint">⧉</span>
+        </button>
 
         <div class="status-row">
             <div id="mc-status" class="mc-status">
                 <span class="status-dot"></span>
                 <span id="mc-status-text">Checking server status…</span>
             </div>
-            <span class="version-chip">Java 26.2</span>
+            <span class="version-chip">Minecraft 26.2</span>
         </div>
         <p id="status-hint" class="status-hint" hidden></p>
     </div>
 </header>
 
-<!-- ===== STATS STRIP ===== -->
-<div class="stats-strip">
-    <div class="stats-inner">
-        <div class="stat">
-            <div class="stat-value" id="stat-players">—</div>
-            <div class="stat-label">Players online</div>
+<!-- ===== "Your adventure deserves the best." (papermc.io 3-software cards) ===== -->
+<section id="play" class="section">
+    <h2 class="section-title left">Your adventure deserves the best.</h2>
+    <div class="grid-3">
+        <a href="#showcase" class="card card-link">
+            <div class="card-icon">⛏</div>
+            <h3>Survival</h3>
+            <p>Vanilla-feel survival with quality-of-life tweaks. No pay-to-win, no clutter — just play.</p>
+            <span class="card-more">Explore the world →</span>
+        </a>
+        <a href="#showcase-events" class="card card-link">
+            <div class="card-icon">🎉</div>
+            <h3>Events</h3>
+            <p>Build contests, drop parties, PvP nights and seasonal events announced in Discord.</p>
+            <span class="card-more">See what's on →</span>
+        </a>
+        <a href="#discord" class="card card-link">
+            <div class="card-icon">💬</div>
+            <h3>Community</h3>
+            <p>Linked Discord with event pings, support and chat. One invite, everything inside.</p>
+            <span class="card-more">Join Discord →</span>
+        </a>
+    </div>
+</section>
+
+<!-- ===== SPLIT SHOWCASE (papermc.io alternating image/text) ===== -->
+<section id="showcase" class="section section-dark">
+    <div class="split">
+        <div class="split-text">
+            <p class="eyebrow">The world</p>
+            <h2>A welcoming survival world</h2>
+            <p>Claim land, build with friends and explore without fear of grief. Friendly staff keep the world safe so you can focus on creating.</p>
+            <a class="btn btn-gold" href="#join">How to join</a>
         </div>
-        <div class="stat">
-            <div class="stat-value">26.2</div>
-            <div class="stat-label">Java Edition</div>
-        </div>
-        <div class="stat">
-            <div class="stat-value" id="stat-status">…</div>
-            <div class="stat-label">Server status</div>
-        </div>
-        <div class="stat">
-            <div class="stat-value">24/7</div>
-            <div class="stat-label">Discord community</div>
+        <div class="split-media">
+            <img src="assets/glowstone-hero.png" alt="Glowstone" class="split-img">
         </div>
     </div>
-</div>
 
-<!-- ===== FEATURES ===== -->
-<section id="features" class="section">
-    <p class="eyebrow">Why Luminol</p>
-    <h2 class="section-title">Built like the big server softwares.<br>Run like a community.</h2>
-    <p class="section-sub">Everything you expect from a polished Paper / Purpur network — survival, protection, events — with a small-server feel.</p>
-    <div class="grid-3">
-        <div class="card">
-            <div class="card-icon">⛏</div>
-            <h3>Survival, done right</h3>
-            <p>Vanilla-feel survival with quality-of-life tweaks. No pay-to-win, no clutter — just play.</p>
+    <div class="split split-reverse" id="showcase-events">
+        <div class="split-text">
+            <p class="eyebrow">Players first</p>
+            <h2>Built for players, day and night</h2>
+            <p>Live player counts, a helpful Discord and regular events. Check the status any time — if we're offline, staff in Discord will get you back in.</p>
+            <div class="mini-stats">
+                <div><strong id="stat-players">—</strong><span>players online</span></div>
+                <div><strong id="stat-status">…</strong><span>server status</span></div>
+                <div><strong>26.2</strong><span>Java Edition</span></div>
+            </div>
         </div>
-        <div class="card">
-            <div class="card-icon">🛡</div>
-            <h3>Land claims</h3>
-            <p>Protect your builds from grief and theft. Claim in seconds, expand as you play.</p>
+        <div class="split-media">
+            <img src="assets/LUMINOL.png" alt="Luminol" class="split-img split-img-wide" onerror="this.style.display='none'">
         </div>
-        <div class="card">
-            <div class="card-icon">🎉</div>
-            <h3>Events & tournaments</h3>
-            <p>Build contests, drop parties, PvP nights and seasonal events announced in Discord.</p>
+    </div>
+
+    <div class="split">
+        <div class="split-text">
+            <p class="eyebrow">Fair play</p>
+            <h2>The promise of fair play</h2>
+            <p>Clear rules, active staff and zero tolerance for cheats, X-ray or dupes. Everyone glows equally here.</p>
+            <a class="btn btn-outline" href="#rules">Read the rules</a>
         </div>
-        <div class="card">
-            <div class="card-icon">💬</div>
-            <h3>Discord linked</h3>
-            <p>Chat bridges, event pings and support tickets. Join: <a href="https://discord.gg/TAhvjB9cAy" target="_blank" rel="noopener">discord.gg/TAhvjB9cAy</a></p>
-        </div>
-        <div class="card">
-            <div class="card-icon">⚖</div>
-            <h3>Fair & safe</h3>
-            <p>Active staff, anti-cheat and clear rules. No hacked clients, X-ray or dupes.</p>
-        </div>
-        <div class="card">
-            <div class="card-icon">⚡</div>
-            <h3>Fast & up to date</h3>
-            <p>Running <strong>Java Edition 26.2</strong> with performance tuning for smooth play.</p>
+        <div class="split-media">
+            <div class="rules-mini">
+                <span>✦ No griefing or stealing</span>
+                <span>✦ No hacked clients or X-ray</span>
+                <span>✦ Be respectful, keep it friendly</span>
+            </div>
         </div>
     </div>
 </section>
 
-<!-- ===== JOIN ===== -->
-<section id="join" class="section section-dark">
-    <p class="eyebrow">Get started</p>
+<!-- ===== JOIN / DOCS ===== -->
+<section id="join" class="section">
+    <p class="eyebrow">Documentation</p>
     <h2 class="section-title">How to Join</h2>
     <p class="section-sub">Java Edition <strong>26.2</strong>. Takes under a minute.</p>
     <div class="join-grid">
         <div class="card step">
             <div class="step-num">1</div>
             <h3>Launch Minecraft</h3>
-            <p>Open <strong>Minecraft: Java Edition 26.2</strong> on PC / Mac / Linux.</p>
+            <p>Open <strong>Minecraft: Java Edition 26.2</strong> on PC, Mac or Linux.</p>
         </div>
         <div class="card step">
             <div class="step-num">2</div>
             <h3>Add the server</h3>
-            <p>Multiplayer → Add Server → paste the IP below → Join.</p>
-            <div class="mini-ip">
+            <p>Multiplayer → Add Server → paste the IP → Join.</p>
+            <button class="mini-ip" onclick="copyIP(this)" title="Click to copy">
                 <code data-mc-ip>finishes-ames.tun.ply.gg</code>
-                <button class="btn btn-gold btn-sm" onclick="copyIP(this)">Copy</button>
-            </div>
+                <span class="ip-copy-hint">⧉</span>
+            </button>
         </div>
         <div class="card step">
             <div class="step-num">3</div>
@@ -155,13 +165,13 @@
 </section>
 
 <!-- ===== DISCORD CTA BANNER ===== -->
-<section id="discord" class="section">
+<section id="discord" class="section section-tight">
     <div class="cta-banner">
         <div>
             <h2>Ready to glow?</h2>
-            <p>Everything happens in Discord — announcements, events, applications and support.</p>
+            <p>Everything happens in Discord — announcements, events and support.</p>
         </div>
-        <a class="btn btn-dark btn-lg" href="https://discord.gg/TAhvjB9cAy" target="_blank" rel="noopener">Join Discord — discord.gg/TAhvjB9cAy</a>
+        <a class="btn btn-dark btn-lg" href="https://discord.gg/TAhvjB9cAy" target="_blank" rel="noopener">Join Discord</a>
     </div>
 </section>
 
@@ -172,7 +182,7 @@
     <div class="faq-list">
         <details class="faq" open>
             <summary>What is the server IP and version?</summary>
-            <p>IP: <code data-mc-ip>finishes-ames.tun.ply.gg</code> — play on <strong>Java Edition 26.2</strong>.</p>
+            <p>IP: <code data-mc-ip>finishes-ames.tun.ply.gg</code> — play on <strong> MinecraftJava Edition 26.2</strong>.</p>
         </details>
         <details class="faq">
             <summary>The status says Offline — what do I do?</summary>
@@ -180,11 +190,11 @@
         </details>
         <details class="faq">
             <summary>Is it Java or Bedrock?</summary>
-            <p>Java Edition 26.2. Bedrock support is not guaranteed — ask in Discord if you need it.</p>
+            <p> Minecraft Java Edition 26.2. Bedrock support is not here yet — ask in Discord if you need it.</p>
         </details>
         <details class="faq">
             <summary>How do I protect my house?</summary>
-            <p>Ask staff in-game or in Discord for the current claim plugin and commands. Never build far from spawn without a claim.</p>
+            <p>Ask staff in-game or in Discord for the current claim commands. Never build far from spawn without a claim.</p>
         </details>
         <details class="faq">
             <summary>How do I join the Discord?</summary>
@@ -206,13 +216,35 @@
     </ul>
 </section>
 
+<!-- ===== FOOTER (papermc.io 4-column style) ===== -->
 <footer class="footer">
-    <div class="footer-inner">
-        <div class="footer-brand">
-            <img src="assets/glowstone.png" alt="Luminol" class="brand-icon">
-            <strong>LUMINOL</strong>
+    <div class="footer-cols">
+        <div class="footer-col footer-brand-col">
+            <div class="footer-brand">
+                <img src="assets/glowstone.png" alt="Luminol" class="brand-icon">
+                <strong>LUMINOL</strong>
+            </div>
+            <p class="footer-dim">A glowing community for Minecraft players.</p>
         </div>
-        <p><code data-mc-ip>finishes-ames.tun.ply.gg</code> &nbsp;•&nbsp; Java 26.2 &nbsp;•&nbsp; <a href="https://discord.gg/TAhvjB9cAy" target="_blank" rel="noopener">Discord</a></p>
+        <div class="footer-col">
+            <h4>Play</h4>
+            <button class="footer-link" onclick="copyIP(this)"><code data-mc-ip>finishes-ames.tun.ply.gg</code> ⧉</button>
+            <span class="footer-dim">Java Edition 26.2</span>
+            <span class="footer-dim" id="footer-status">Status: checking…</span>
+        </div>
+        <div class="footer-col">
+            <h4>Community</h4>
+            <a href="https://discord.gg/TAhvjB9cAy" target="_blank" rel="noopener">Discord</a>
+            <a href="#faq">FAQ</a>
+        </div>
+        <div class="footer-col">
+            <h4>Server</h4>
+            <a href="#play">Features</a>
+            <a href="#join">How to Join</a>
+            <a href="#rules">Rules</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
         <p class="footer-dim">© <span id="year">2026</span> Luminol. Not affiliated with Mojang or Microsoft.</p>
         <p class="footer-glow">✦ Built by the community, for the community ✦</p>
     </div>

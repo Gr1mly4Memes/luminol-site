@@ -34,9 +34,22 @@ async function copyIP(btn) {
     }
 }
 
-// ---- Live Minecraft status via mcsrvstat.us ----
-// NOTE: no custom headers — browsers forbid the `User-Agent` header and it
-// breaks the request with CORS. mcsrvstat.us works fine without it.
+// ---- Live Minecraft status via mcstatus.io (Playit.gg-compatible) ----
+// mcsrvstat.us resolves Playit tunnels to IPv6 and reports offline even when
+// the server is up. mcstatus.io follows the SRV record over IPv4 correctly,
+// so it is the primary source here, with mcsrvstat.us as fallback.
+async function fetchJSON(url, timeoutMs = 10000) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), timeoutMs);
+    try {
+        const res = await fetch(url, { signal: controller.signal });
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        return await res.json();
+    } finally {
+        clearTimeout(timeout);
+    }
+}
+
 async function fetchMCStatus() {
     const pill = document.getElementById("mc-status");
     const text = document.getElementById("mc-status-text");
@@ -44,13 +57,21 @@ async function fetchMCStatus() {
     const statPlayers = document.getElementById("stat-players");
     const statStatus = document.getElementById("stat-status");
     const navDot = document.getElementById("nav-dot");
+    const footerStatus = document.getElementById("footer-status");
 
+    // Never show server-software names — display only "Java <number>".
+    // Display only "Java <number>", falling back to the known version.
+    const toDisplayVersion = (raw) => {
+        const m = String(raw || "").match(/(\d+\.\d+(?:\.\d+)?)/);
+        return "Java " + (m ? m[1] : MC_VERSION);
+    };
     const setOffline = (msg, hintMsg) => {
         pill.classList.remove("online");
         pill.classList.add("offline");
         text.textContent = msg;
         if (statStatus) statStatus.textContent = "Offline";
         if (statPlayers) statPlayers.textContent = "0";
+        if (footerStatus) footerStatus.textContent = "Status: offline";
         if (navDot) navDot.className = "dot offline";
         if (hint && hintMsg) { hint.textContent = hintMsg; hint.hidden = false; }
     };
@@ -60,31 +81,36 @@ async function fetchMCStatus() {
         text.textContent = `Online — ${online}/${max} players${version ? " · " + version : ""}`;
         if (statStatus) statStatus.textContent = "Online";
         if (statPlayers) statPlayers.textContent = String(online);
+        if (footerStatus) footerStatus.textContent = `Status: online — ${online}/${max}`;
         if (navDot) navDot.className = "dot online";
         if (hint) hint.hidden = true;
     };
 
     try {
-        const controller = new AbortController();
-        const timeout = setTimeout(() => controller.abort(), 10000);
-        const res = await fetch(`https://api.mcsrvstat.us/3/${MC_SERVER_ADDRESS}`, {
-            signal: controller.signal,
-        });
-        clearTimeout(timeout);
-        if (!res.ok) throw new Error("HTTP " + res.status);
-        const data = await res.json();
+        // Primary: mcstatus.io (handles Playit.gg SRV → port 35773 correctly)
+        const data = await fetchJSON(`https://api.mcstatus.io/v2/status/java/${MC_SERVER_ADDRESS}`);
 
         if (data && data.online) {
             const online = data.players?.online ?? 0;
             const max = data.players?.max ?? "?";
-            setOnline(online, max, data.version);
-        } else {
-            // Playit.gg tunnels only respond while the host PC is online.
-            setOffline(
-                "Server is offline",
-                "The tunnel only answers while the host PC is running — ask staff in Discord to start it."
-            );
+            setOnline(online, max, toDisplayVersion(data.version?.name_clean));
+            return;
         }
+
+        // Fallback: mcsrvstat.us (may misreport Playit tunnels as offline)
+        try {
+            const fb = await fetchJSON(`https://api.mcsrvstat.us/3/${MC_SERVER_ADDRESS}`);
+            if (fb && fb.online) {
+                setOnline(fb.players?.online ?? 0, fb.players?.max ?? "?", toDisplayVersion(fb.version));
+                return;
+            }
+        } catch {}
+
+        // Playit.gg tunnels only respond while the host PC is online.
+        setOffline(
+            "Server is offline",
+            "The tunnel only answers while the host PC is running — ask staff in Discord to start it."
+        );
     } catch (err) {
         setOffline("Could not reach status API", "Status check failed — the IP copy button still works. Try refreshing.");
     }
