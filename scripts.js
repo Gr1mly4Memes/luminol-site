@@ -121,7 +121,7 @@ setInterval(fetchMCStatus, 60 * 1000);
 
 // ===== Page transitions: scroll reveals + nav spy + target flash =====
 (function () {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // Reduced motion check removed to force animations
 
     // 1. Reveal elements as they scroll into view.
     // Uses IntersectionObserver + a scroll sweep fallback, so fast jumps
