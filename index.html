@@ -3,76 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luminol — Minecraft & Discord Server</title>
+    <title>Luminol — A glowing community for Minecraft players</title>
+    <meta name="description" content="Luminol is a glowing community for Minecraft players. Join with Java Edition 26.2.">
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- ===== NAVBAR ===== -->
+<!-- ===== NAVBAR (Paper-style) ===== -->
 <nav class="navbar">
     <div class="nav-inner">
         <a href="#home" class="brand">
-            <img src="assets/glowstone.png" alt="Luminol" class="brand-icon">
+            <img src="assets/glowstone.png" alt="Luminol glowstone" class="brand-icon">
             <span>LUMINOL</span>
         </a>
         <div class="nav-links">
-            <a href="#home">Home</a>
-            <a href="#join">Join</a>
-            <a href="#discord">Discord</a>
+            <a href="#features">Features</a>
+            <a href="#join">How to Join</a>
+            <a href="#faq">FAQ</a>
             <a href="#rules">Rules</a>
+        </div>
+        <div class="nav-actions">
+            <button class="ip-pill" onclick="copyIP(this)" title="Click to copy">
+                <span class="dot" id="nav-dot"></span>
+                <code data-mc-ip>finishes-ames.tun.ply.gg</code>
+            </button>
+            <a class="btn btn-gold btn-sm" href="https://discord.gg/TAhvjB9cAy" target="_blank" rel="noopener">Discord</a>
         </div>
     </div>
 </nav>
 
 <!-- ===== HERO ===== -->
 <header id="home" class="hero">
+    <div class="hero-bg"></div>
     <div class="hero-content">
-        <img src="assets/glowstone-hero.png" alt="Glowstone" class="hero-img">
+        <div class="badge">✦ &nbsp;Java Edition 26.2 &nbsp;•&nbsp; Survival &nbsp;•&nbsp; Community&nbsp; ✦</div>
+        <img src="assets/glowstone-hero.png" alt="Glowstone block" class="hero-img">
         <h1 class="glow-text">LUMINOL</h1>
         <p class="tagline">A glowing community for Minecraft players.</p>
 
-        <div class="ip-box">
-            <span class="ip-label">Server IP</span>
-            <code id="server-ip">finishes-ames.tun.ply.gg</code>
-            <button class="btn btn-gold" onclick="copyIP()">Copy IP</button>
+        <div class="cta-row">
+            <button class="btn btn-gold btn-lg" onclick="copyIP(this)">⛏ Play Now — Copy IP</button>
+            <a class="btn btn-outline btn-lg" href="https://discord.gg/TAhvjB9cAy" target="_blank" rel="noopener">Join Discord</a>
         </div>
 
-        <div id="mc-status" class="mc-status">Checking server status…</div>
+        <div class="ip-bar">
+            <span class="ip-label">Server IP</span>
+            <code data-mc-ip>finishes-ames.tun.ply.gg</code>
+            <button class="btn btn-gold btn-sm" onclick="copyIP(this)">Copy IP</button>
+        </div>
+
+        <div class="status-row">
+            <div id="mc-status" class="mc-status">
+                <span class="status-dot"></span>
+                <span id="mc-status-text">Checking server status…</span>
+            </div>
+            <span class="version-chip">Java 26.2</span>
+        </div>
+        <p id="status-hint" class="status-hint" hidden></p>
     </div>
 </header>
 
-<!-- ===== JOIN ===== -->
-<section id="join" class="section">
-    <h2 class="section-title">How to Join</h2>
+<!-- ===== STATS STRIP ===== -->
+<div class="stats-strip">
+    <div class="stats-inner">
+        <div class="stat">
+            <div class="stat-value" id="stat-players">—</div>
+            <div class="stat-label">Players online</div>
+        </div>
+        <div class="stat">
+            <div class="stat-value">26.2</div>
+            <div class="stat-label">Java Edition</div>
+        </div>
+        <div class="stat">
+            <div class="stat-value" id="stat-status">…</div>
+            <div class="stat-label">Server status</div>
+        </div>
+        <div class="stat">
+            <div class="stat-value">24/7</div>
+            <div class="stat-label">Discord community</div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== FEATURES ===== -->
+<section id="features" class="section">
+    <p class="eyebrow">Why Luminol</p>
+    <h2 class="section-title">Built like the big server softwares.<br>Run like a community.</h2>
+    <p class="section-sub">Everything you expect from a polished Paper / Purpur network — survival, protection, events — with a small-server feel.</p>
     <div class="grid-3">
         <div class="card">
-            <div class="step-num">1</div>
-            <h3>Launch Minecraft</h3>
-            <p>Java Edition <strong>26.2+</strong> (check Discord for the current version).</p>
+            <div class="card-icon">⛏</div>
+            <h3>Survival, done right</h3>
+            <p>Vanilla-feel survival with quality-of-life tweaks. No pay-to-win, no clutter — just play.</p>
         </div>
         <div class="card">
-            <div class="step-num">2</div>
-            <h3>Add Server</h3>
-            <p>Multiplayer → Add Server → paste the IP above.</p>
+            <div class="card-icon">🛡</div>
+            <h3>Land claims</h3>
+            <p>Protect your builds from grief and theft. Claim in seconds, expand as you play.</p>
         </div>
         <div class="card">
-            <div class="step-num">3</div>
-            <h3>Join Discord</h3>
-            <p>Link your account in-game to get member roles and event pings.</p>
+            <div class="card-icon">🎉</div>
+            <h3>Events & tournaments</h3>
+            <p>Build contests, drop parties, PvP nights and seasonal events announced in Discord.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">💬</div>
+            <h3>Discord linked</h3>
+            <p>Chat bridges, event pings and support tickets. Join: <a href="https://discord.gg/TAhvjB9cAy" target="_blank" rel="noopener">discord.gg/TAhvjB9cAy</a></p>
+        </div>
+        <div class="card">
+            <div class="card-icon">⚖</div>
+            <h3>Fair & safe</h3>
+            <p>Active staff, anti-cheat and clear rules. No hacked clients, X-ray or dupes.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">⚡</div>
+            <h3>Fast & up to date</h3>
+            <p>Running <strong>Java Edition 26.2</strong> with performance tuning for smooth play.</p>
         </div>
     </div>
 </section>
 
-<!-- ===== DISCORD ===== -->
-<section id="discord" class="section section-dark">
-    <h2 class="section-title">Join Our Discord</h2>
-    <p class="section-sub">Chat, events, announcements, and support — all in one place.</p>
-    <p style="margin-bottom:24px;"><a class="btn btn-gold" style="text-decoration:none;" href="https://discord.gg/TAhvjB9cAy" target="_blank" rel="noopener">Join Discord — discord.gg/TAhvjB9cAy</a></p>
+<!-- ===== JOIN ===== -->
+<section id="join" class="section section-dark">
+    <p class="eyebrow">Get started</p>
+    <h2 class="section-title">How to Join</h2>
+    <p class="section-sub">Java Edition <strong>26.2</strong>. Takes under a minute.</p>
+    <div class="join-grid">
+        <div class="card step">
+            <div class="step-num">1</div>
+            <h3>Launch Minecraft</h3>
+            <p>Open <strong>Minecraft: Java Edition 26.2</strong> on PC / Mac / Linux.</p>
+        </div>
+        <div class="card step">
+            <div class="step-num">2</div>
+            <h3>Add the server</h3>
+            <p>Multiplayer → Add Server → paste the IP below → Join.</p>
+            <div class="mini-ip">
+                <code data-mc-ip>finishes-ames.tun.ply.gg</code>
+                <button class="btn btn-gold btn-sm" onclick="copyIP(this)">Copy</button>
+            </div>
+        </div>
+        <div class="card step">
+            <div class="step-num">3</div>
+            <h3>Join the Discord</h3>
+            <p>Get roles, event pings and help from staff and players.</p>
+            <a class="btn btn-outline btn-sm" href="https://discord.gg/TAhvjB9cAy" target="_blank" rel="noopener">discord.gg/TAhvjB9cAy</a>
+        </div>
+    </div>
+</section>
+
+<!-- ===== DISCORD CTA BANNER ===== -->
+<section id="discord" class="section">
+    <div class="cta-banner">
+        <div>
+            <h2>Ready to glow?</h2>
+            <p>Everything happens in Discord — announcements, events, applications and support.</p>
+        </div>
+        <a class="btn btn-dark btn-lg" href="https://discord.gg/TAhvjB9cAy" target="_blank" rel="noopener">Join Discord — discord.gg/TAhvjB9cAy</a>
+    </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section id="faq" class="section section-dark">
+    <p class="eyebrow">FAQ</p>
+    <h2 class="section-title">Questions, answered</h2>
+    <div class="faq-list">
+        <details class="faq" open>
+            <summary>What is the server IP and version?</summary>
+            <p>IP: <code data-mc-ip>finishes-ames.tun.ply.gg</code> — play on <strong>Java Edition 26.2</strong>.</p>
+        </details>
+        <details class="faq">
+            <summary>The status says Offline — what do I do?</summary>
+            <p>The server runs on a Playit.gg tunnel, so it only shows <em>Online</em> while the host PC is running. If it's offline, ping staff in Discord — <a href="https://discord.gg/TAhvjB9cAy" target="_blank" rel="noopener">discord.gg/TAhvjB9cAy</a>.</p>
+        </details>
+        <details class="faq">
+            <summary>Is it Java or Bedrock?</summary>
+            <p>Java Edition 26.2. Bedrock support is not guaranteed — ask in Discord if you need it.</p>
+        </details>
+        <details class="faq">
+            <summary>How do I protect my house?</summary>
+            <p>Ask staff in-game or in Discord for the current claim plugin and commands. Never build far from spawn without a claim.</p>
+        </details>
+        <details class="faq">
+            <summary>How do I join the Discord?</summary>
+            <p>Only via this invite: <a href="https://discord.gg/TAhvjB9cAy" target="_blank" rel="noopener">https://discord.gg/TAhvjB9cAy</a></p>
+        </details>
+    </div>
 </section>
 
 <!-- ===== RULES ===== -->
 <section id="rules" class="section">
+    <p class="eyebrow">Fair play</p>
     <h2 class="section-title">Server Rules</h2>
     <ul class="rules-list">
         <li>Be respectful — no harassment, hate speech, or spam.</li>
@@ -84,8 +207,15 @@
 </section>
 
 <footer class="footer">
-    <p>© 2026 Luminol. Not affiliated with Mojang or Microsoft.</p>
-    <p class="footer-glow">✦ Built by the community, for the community ✦</p>
+    <div class="footer-inner">
+        <div class="footer-brand">
+            <img src="assets/glowstone.png" alt="Luminol" class="brand-icon">
+            <strong>LUMINOL</strong>
+        </div>
+        <p><code data-mc-ip>finishes-ames.tun.ply.gg</code> &nbsp;•&nbsp; Java 26.2 &nbsp;•&nbsp; <a href="https://discord.gg/TAhvjB9cAy" target="_blank" rel="noopener">Discord</a></p>
+        <p class="footer-dim">© <span id="year">2026</span> Luminol. Not affiliated with Mojang or Microsoft.</p>
+        <p class="footer-glow">✦ Built by the community, for the community ✦</p>
+    </div>
 </footer>
 
 <script src="scripts.js"></script>
