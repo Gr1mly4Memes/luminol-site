@@ -118,3 +118,63 @@ async function fetchMCStatus() {
 
 fetchMCStatus();
 setInterval(fetchMCStatus, 60 * 1000);
+
+// ===== Page transitions: scroll reveals + nav spy + target flash =====
+(function () {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    // 1. Reveal elements as they scroll into view
+    const revealEls = document.querySelectorAll(
+        ".section, .split, .card, .faq, .cta-banner, .rules-list li, .stats-strip"
+    );
+    revealEls.forEach((el) => el.classList.add("reveal"));
+
+    const revealer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((e) => {
+                if (e.isIntersecting) {
+                    e.target.classList.add("visible");
+                    revealer.unobserve(e.target);
+                }
+            });
+        },
+        { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+    );
+    revealEls.forEach((el) => revealer.observe(el));
+
+    // 2. Highlight the nav link for the section in view
+    const navMap = new Map();
+    document.querySelectorAll(".nav-links a[href^='#']").forEach((a) => {
+        navMap.set(a.getAttribute("href").slice(1), a);
+    });
+    const spy = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((e) => {
+                const link = navMap.get(e.target.id);
+                if (!link) return;
+                if (e.isIntersecting) {
+                    navMap.forEach((a) => a.classList.remove("active"));
+                    link.classList.add("active");
+                }
+            });
+        },
+        { rootMargin: "-40% 0px -55% 0px" }
+    );
+    navMap.forEach((_, id) => {
+        const target = document.getElementById(id);
+        if (target) spy.observe(target);
+    });
+
+    // 3. Brief glow flash on the section you navigated to
+    document.querySelectorAll("a[href^='#']").forEach((a) => {
+        a.addEventListener("click", () => {
+            const target = document.querySelector(a.getAttribute("href"));
+            if (!target) return;
+            target.classList.remove("section-flash");
+            setTimeout(() => {
+                target.classList.add("section-flash");
+                setTimeout(() => target.classList.remove("section-flash"), 1300);
+            }, 450);
+        });
+    });
+})();
