@@ -1,6 +1,14 @@
 {
   "announcements": [
     {
+      "id": 2,
+      "title": "Support Luminol",
+      "content": "Want to help Luminol grow? Luminol is an ongoing project, and donations help us put more resources toward improving the server, upgrading hardware, covering hosting costs, and continuing development. PayPal: https://paypal.me/ToniA16425 Every donation helps, no matter the amount. Donations are completely optional, and you do not need to donate to play on or enjoy Luminol. Your support can help us: Upgrade server hardware, Improve performance and reduce lag, Keep development and testing moving, Cover hosting and infrastructure costs, Add more features and improvements. Thank you to everyone who supports Luminol — whether through donations, testing, development, bug reports, suggestions, or simply playing on the server. Luminol is built by the community, for the community.",
+      "date": "2026-09-05",
+      "author": "Admin",
+      "type": "info"
+    },
+    {
       "id": 1,
       "title": "Luminol is a Work in Progress!",
       "content": "Hey everyone! Luminol is still very new and actively being worked on. Things may change, break, or behave unexpectedly while we continue developing and improving the server. We're still fixing bugs, improving performance, adding features, and figuring things out. Your feedback and suggestions are a big part of helping Luminol grow. Please keep in mind that our server hardware is limited. Because of this, extremely large farms, excessive entity counts, lag machines, and other resource-heavy setups can have a noticeable impact on everyone. Expect some rough edges. Report bugs when you find them. Share your ideas and suggestions. Keep our limited hardware in mind. Most importantly, have fun! Thanks for being here early and helping us build Luminol into something awesome!",
